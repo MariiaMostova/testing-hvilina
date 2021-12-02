@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+
+from website import assert_manager
 from website.locator.order_page_locator import OrderPageLocator
 from website.page.base import Base
 from selenium.webdriver.support.expected_conditions import *
@@ -16,6 +18,7 @@ class OrderPage(Base):
         elem.clear()
         elem.send_keys(text)
         self.driver_wait.until(text_to_be_present_in_element_value([By.XPATH, locator], text))
+        assert_manager.assert_contains(elem.get_attribute('value'), text)
 
     def type_form(self):
         self.validate_input(OrderPageLocator.PHONE_NUMBER_INPUT, '0980980980')
